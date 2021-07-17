@@ -1,0 +1,6 @@
+{
+    "skip_files": [
+        "lib/on_mars_web/channels",
+        "test/support"
+    ]
+}
