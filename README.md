@@ -1,4 +1,5 @@
-# OnMars
+# Project-OnMars
+[![codecov](https://codecov.io/gh/GiovanniHessel94/project-on-mars/branch/main/graph/badge.svg?token=3SU9DYKHWA)](https://codecov.io/gh/GiovanniHessel94/project-on-mars)
 
 To start your Phoenix server:
 
