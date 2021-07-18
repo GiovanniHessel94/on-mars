@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: OnMars
+  description: Documentação da API desenvolvida no projeto [OnMars](https://github.com/GiovanniHessel94/project-on-mars)
+  version: 0.0.1
+servers:
+  - url: https://project-on-mars.gigalixirapp.com/api/
+    description: Servidor "produção" sendo executado na plataforma gigalixir
+  - url: http://localhost:4000/api
+    description: Servidor aberto após executar a aplicação localmente
+paths:
+  /rovers/coordinates:
+    get:
+      description: Retorna a posição atual da sonda nos eixos x e y, e a letra inicial de sua direção, sendo esta "E - Esquerda", "D - Direita", "C - Cima" ou "B - Baixo"
+      responses:
+        '200':
+          description: Dados de posição da sonda obtidos com sucesso
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      direction:
+                        type: string
+                        description: Direção atual da sonda
+                        example: "D"
+                      x:
+                        type: number
+                        description: Posição da sonda no eixo x
+                        example: 0
+                      y:
+                        type: number
+                        description: Posição da sonda no eixo y
+                        example: 0
+                  message:
+                    type: string
+                    description: mensagem de sucesso
+                    example: Coordenatas obtidas com sucesso!
+  /rovers/execute:
+    post:
+      description: Executa a série de comandos recebidos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                commands:
+                  type: array
+                  example: ["GE", "M", "M"]
+                  items:
+                    type: string
+                    description: Comando a ser executado. GE, GD ou M
+                    enum: ["GE", "GD", "M"]
+      responses:
+        '200':
+          description: Posição da sonda após execução dos comandos com sucesso
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      x:
+                        type: number
+                        description: Posição da sonda no eixo x
+                        example: 0
+                      y:
+                        type: number
+                        description: Posição da sonda no eixo y
+                        example: 0
+                  message:
+                    type: string
+                    description: mensagem de sucesso
+                    example: Comandos executados com sucesso!
+        '400':
+          description: A série de comandos não pode ser executada pois a sonda acabaria fora do quadrante permitido
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: mensagem de erro
+                    example: A sonda detectou que essa série de comandos não pode ser executada!
+  /rovers/reset:
+    put:
+      description: Retorna a sonda para posição e estado inicial onde x é 0, y é 0 e sua direção é "D - Direita"
+      responses:
+        '204':
+          description: Sonda retornada para posição e estado inicial com sucesso
+              
+                    
