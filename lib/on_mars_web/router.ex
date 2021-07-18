@@ -2,6 +2,7 @@ defmodule OnMarsWeb.Router do
   use OnMarsWeb, :router
 
   pipeline :api do
+    plug CORSPlug, origin: "*"
     plug :accepts, ["json"]
   end
 

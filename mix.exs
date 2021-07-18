@@ -49,7 +49,8 @@ defmodule OnMars.MixProject do
       {:ecto, "~> 3.6.0"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
-      {:ex_machina, "~> 2.7.0", only: :test}
+      {:ex_machina, "~> 2.7.0", only: :test},
+      {:cors_plug, "~> 2.0"}
     ]
   end
 

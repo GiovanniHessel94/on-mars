@@ -35,7 +35,7 @@ mix phx.server
 
 ## Endpoints
 
-A documentação dos endpoints desenvolvidos nesse projeto pode ser encontrada neste [link](https://github.com/GiovanniHessel94/project-on-mars/blob/main/swagger.yaml). 
+A documentação dos endpoints desenvolvidos nesse projeto pode ser encontrada neste [link](https://petstore.swagger.io/?url=https://raw.githubusercontent.com/GiovanniHessel94/project-on-mars/main/swagger.yaml). 
 
 Através da documentação é possível realizar requisições ao servidor local e ao [servidor "produção"](https://project-on-mars.gigalixirapp.com/api/) sendo executado na [plataforma gigalixir](https://www.gigalixir.com/).
 
