@@ -14,6 +14,10 @@ defmodule OnMars.Commands do
   def changeset(params) do
     %__MODULE__{}
     |> cast(params, @params)
+    |> validate_required(
+      @params,
+      message: "A lista de comandos é obrigatória! Verifique o corpo da requisição."
+    )
     |> custom_commands_cast_error(
       "Foram identificados comandos inválidos! Verifique os comandos enviados."
     )

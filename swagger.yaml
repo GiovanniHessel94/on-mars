@@ -80,18 +80,21 @@ paths:
                     description: mensagem de sucesso
                     example: Comandos executados com sucesso!
         '400':
-          description: Foram recebidos comandos inválidos na requisição ou a série de comandos não pode ser executada pois a sonda acabaria fora do quadrante permitido
+          description: Os comandos não informados, foram recebidos comandos inválidos ou a série de comandos não pode ser executada pois a sonda acabaria fora do quadrante permitido
           content:
             application/json:
               schema:
                 oneOf:
+                  - $ref: '#/components/schemas/CommandsRequired'
                   - $ref: '#/components/schemas/InvalidCommands'
                   - $ref: '#/components/schemas/InvalidCommandsSequence'
               examples:
-                objectExample:
-                  $ref: '#/components/examples/objectExample'
-                objectExample2:
-                  $ref: '#/components/examples/objectExample2'
+                CommandsRequiredExample:
+                  $ref: '#/components/examples/CommandsRequiredExample'
+                InvalidCommandsExample:
+                  $ref: '#/components/examples/InvalidCommandsExample'
+                InvalidCommandsSequenceExample:
+                  $ref: '#/components/examples/InvalidCommandsSequenceExample'
   /rovers/reset:
     put:
       description: Retorna a sonda para posição e estado inicial onde x é 0, y é 0 e sua direção é "D - Direita"
@@ -100,16 +103,33 @@ paths:
           description: Sonda retornada para posição e estado inicial com sucesso
 components:
   examples:
-    objectExample:
+    CommandsRequiredExample:
+      value:
+        error: 
+          commands: [A lista de comandos é obrigatória! Verifique o corpo da requisição.]
+      summary: Comandos não informados
+    InvalidCommandsExample:
       value:
         error: 
           commands: [Foram identificados comandos inválidos! Verifique os comandos enviados.]
       summary: Comandos inválidos na requisição
-    objectExample2:
+    InvalidCommandsSequenceExample:
       value:
         error: A sonda detectou que essa série de comandos não pode ser executada!
       summary: Série de comandos não pode ser executada
   schemas:
+    CommandsRequired:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            commands:
+              type: array
+              items:
+                type: string
+                description: mensagem de erro
+                example: A lista de comandos é obrigatória! Verifique o corpo da requisição.
     InvalidCommands:
       type: object
       properties:
