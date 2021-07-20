@@ -106,7 +106,7 @@ components:
     CommandsRequiredExample:
       value:
         error: 
-          commands: [A lista de comandos é obrigatória! Verifique o corpo da requisição.]
+          commands: [A lista de comandos é obrigatória e deve conter um ou mais comandos! Verifique o corpo da requisição.]
       summary: Comandos não informados
     InvalidCommandsExample:
       value:

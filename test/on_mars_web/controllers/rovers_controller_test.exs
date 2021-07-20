@@ -21,7 +21,45 @@ defmodule OnMarsWeb.RoversControllerTest do
              } = response
     end
 
-    test "when there are invalid params, returns an error", %{conn: conn} do
+    test "when there is no commands, returns an error", %{conn: conn} do
+      params = %{}
+
+      expected_response = %{
+        "error" => %{
+          "commands" => [
+            "A lista de comandos é obrigatória e deve conter um ou mais comandos! Verifique o corpo da requisição."
+          ]
+        }
+      }
+
+      response =
+        conn
+        |> post("/api/rovers/execute", params)
+        |> json_response(:bad_request)
+
+      assert response == expected_response
+    end
+
+    test "when commands is empty, returns an error", %{conn: conn} do
+      params = build(:commands_params, %{"commands" => []})
+
+      expected_response = %{
+        "error" => %{
+          "commands" => [
+            "A lista de comandos é obrigatória e deve conter um ou mais comandos! Verifique o corpo da requisição."
+          ]
+        }
+      }
+
+      response =
+        conn
+        |> post("/api/rovers/execute", params)
+        |> json_response(:bad_request)
+
+      assert response == expected_response
+    end
+
+    test "when there are invalid commands, returns an error", %{conn: conn} do
       params = build(:commands_params, %{"commands" => ["N"]})
 
       expected_response = %{
